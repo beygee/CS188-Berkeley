@@ -91,6 +91,8 @@ def depthFirstSearch(problem):
     "*** YOUR CODE HERE ***"
     visit = list()
     stack = util.Stack()
+
+    # (State, Path)
     stack.push((problem.getStartState(), []))
 
     while not stack.isEmpty():
@@ -99,6 +101,7 @@ def depthFirstSearch(problem):
         if(problem.isGoalState(state)):
             return path
 
+        # Visit only the node has been not visited!
         if state not in visit:
             visit.append(state)
             for successor in problem.getSuccessors(state):
@@ -108,13 +111,44 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    visit = list()
+    queue = util.Queue()
+
+    # (State, Path)
+    queue.push((problem.getStartState(), []))
+
+    while not queue.isEmpty():
+        (state, path) = queue.pop()
+
+        if(problem.isGoalState(state)):
+            return path
+
+        if state not in visit:
+            visit.append(state)
+            for successor in problem.getSuccessors(state):
+                queue.push((successor[0], path + [successor[1]]))
 
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    visit = list()
+    queue = util.PriorityQueueWithFunction(lambda itemTuple: itemTuple[2])
+
+    # (State, Path, Cost)
+    queue.push((problem.getStartState(), [], 0))
+
+    while not queue.isEmpty():
+        (state, path, cost) = queue.pop()
+
+        if(problem.isGoalState(state)):
+            return path
+
+        if state not in visit:
+            visit.append(state)
+            for successor in problem.getSuccessors(state):
+                queue.push(
+                    (successor[0], path + [successor[1]], cost + successor[2]))
 
 
 def nullHeuristic(state, problem=None):
@@ -128,7 +162,24 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    visit = list()
+    queue = util.PriorityQueueWithFunction(lambda itemTuple: itemTuple[3])
+
+    # (State, path, realCost: 해당 State까지 실제 비용, priorityCost: 우선순위 큐에 이용하기 위한 목적)
+    queue.push((problem.getStartState(), [], 0, 0))
+
+    while not queue.isEmpty():
+        (state, path, cost, _) = queue.pop()
+
+        if(problem.isGoalState(state)):
+            return path
+
+        if state not in visit:
+            visit.append(state)
+            for successor in problem.getSuccessors(state):
+                realCost = cost + successor[2]
+                queue.push(
+                    (successor[0], path + [successor[1]], realCost, realCost + heuristic(successor[0], problem)))
 
 
 # Abbreviations

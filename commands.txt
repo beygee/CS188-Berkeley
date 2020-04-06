@@ -23,6 +23,54 @@ python3 pacman.py -l bigSearch -p ClosestDotSearchAgent -z .5
 
 Q1.
 python3 pacman.py -l tinyMaze -p SearchAgent
+Path found with total cost of 10 in 0.0 seconds
+Search nodes expanded: 15
+Pacman emerges victorious! Score: 500
+
 python3 pacman.py -l mediumMaze -p SearchAgent
+Path found with total cost of 130 in 0.0 seconds
+Search nodes expanded: 146
+Pacman emerges victorious! Score: 380
+
 python3 pacman.py -l bigMaze -z .5 -p SearchAgent
-python3 pacman.py -l tinyMaze -p SearchAgent -a fn=tinyMazeSearch
+Path found with total cost of 210 in 0.0 seconds
+Search nodes expanded: 390
+Pacman emerges victorious! Score: 300
+
+Q2.
+python3 pacman.py -l mediumMaze -p SearchAgent -a fn=bfs
+Path found with total cost of 68 in 0.0 seconds
+Search nodes expanded: 269
+Pacman emerges victorious! Score: 442
+
+python3 pacman.py -l bigMaze -p SearchAgent -a fn=bfs -z .5
+Path found with total cost of 210 in 0.0 seconds
+Search nodes expanded: 620
+Pacman emerges victorious! Score: 300
+
+Q3.
+python3 pacman.py -l mediumMaze -p SearchAgent -a fn=ucs
+Path found with total cost of 68 in 0.0 seconds
+Search nodes expanded: 269
+Pacman emerges victorious! Score: 442
+
+python3 pacman.py -l bigMaze -p SearchAgent -a fn=ucs -z .5
+Path found with total cost of 210 in 0.0 seconds
+Search nodes expanded: 620
+Pacman emerges victorious! Score: 300
+
+python3 pacman.py -l mediumDottedMaze -p StayEastSearchAgent
+Path found with total cost of 1 in 0.0 seconds
+Search nodes expanded: 186
+Pacman emerges victorious! Score: 646
+
+python3 pacman.py -l mediumScaryMaze -p StayWestSearchAgent
+Path found with total cost of 68719479864 in 0.0 seconds
+Search nodes expanded: 108
+Pacman emerges victorious! Score: 418
+
+Q4.
+python3 pacman.py -l bigMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic
+Path found with total cost of 210 in 0.0 seconds
+Search nodes expanded: 549
+Pacman emerges victorious! Score: 300
